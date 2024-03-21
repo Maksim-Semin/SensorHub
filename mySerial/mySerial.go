@@ -13,8 +13,8 @@ type SerialPort struct {
 
 func NewSerialPort() (*SerialPort, error) {
 	config := &serial.Config{
-		Name:        "COM3",
-		Baud:        9600,
+		Name:        USBPORT,
+		Baud:        BAUD,
 		ReadTimeout: time.Second * 5,
 	}
 

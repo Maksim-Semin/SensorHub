@@ -14,7 +14,7 @@ type Message struct {
 	Command   byte
 	Length    uint8
 	UID       []byte
-	CRC       uint8
+	CRC       byte
 	EndByte   byte
 }
 
@@ -40,11 +40,13 @@ func Receiver() {
 				message.CRC = buf[7]
 				message.EndByte = buf[8]
 
-				err := distribution(message)
-				if err != nil {
-					fmt.Println(err)
+				crc := getCRC(message.UID)
+				if crc == message.CRC {
+					err := distribution(message)
+					if err != nil {
+						fmt.Println(err)
+					}
 				}
-
 			}
 		}
 	}
