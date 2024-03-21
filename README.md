@@ -32,8 +32,8 @@ Arduino:
 1. RFID Считыватель :
 ``` MFRC522 Arduino  Reader/PCD Uno/101
 
-Pin 				Pin
-
+Pin  				Pin
+Reader/PCD Uno/101	MFRC522 Arduino
 ---------------------
 
 RST 				9
