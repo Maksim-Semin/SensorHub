@@ -34,7 +34,7 @@ Arduino:
 
 Pin  				Pin
 Reader/PCD Uno/101	MFRC522 Arduino
----------------------
+--------------------------------
 
 RST 				9
 SDA(SS) 			10
