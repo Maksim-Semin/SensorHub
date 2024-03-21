@@ -41,7 +41,7 @@ SDA(SS) 			10
 MOSI 				11
 MISO 				12
 SCK 				13
-VСС         3.3V
+VСС        3.3V
 GND 				GND 
 ```
 2. Реле
