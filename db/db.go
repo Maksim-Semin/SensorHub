@@ -28,7 +28,6 @@ type DB struct {
 }
 
 func (d *DB) DBInit() error {
-
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
 		return err

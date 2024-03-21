@@ -82,7 +82,7 @@ func BytConvert(cardNumber string) ([]byte, error) {
 	for i, byteStr := range byteStrs {
 		byteValue, err := strconv.ParseUint(byteStr, 10, 8)
 		if err != nil {
-			return cardByte, fmt.Errorf("Ошибка при преобразовании строки %s в байт: %v\n", byteStr, err)
+			return cardByte, fmt.Errorf("Error converting a string %s to byte: %v\n", byteStr, err)
 		}
 		cardByte[i] = byte(byteValue)
 	}
