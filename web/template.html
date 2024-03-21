@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cards Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .hidden {
+            display: none;
+        }
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .actions form {
+            margin: 0;
+            display: inline;
+        }
+        .actions button {
+            border: none;
+            background-color: transparent;
+            color: #007bff;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: background-color 0.3s ease;
+        }
+        .actions button:hover {
+            background-color: #e6f2ff;
+        }
+        .actions input[type="submit"] {
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: background-color 0.3s ease;
+        }
+        .actions input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<h1>Cards Data</h1>
+<ul>
+    {{range .}}
+    <li>
+        <span>Command: {{.Command}}</span>
+        <div class="actions">
+            {{ if eq .Command "UNDEFINED" }}
+            <form action="/change-command" method="POST" class="hidden-form">
+                <input type="hidden" name="bytes" value="{{.Bytes}}">
+                <select name="newCommand" required class="commandSelect">
+                    <option value="">Select a Command</option>
+                    <option value="Turn on the relay">Turn on the relay</option>
+                    <option value="Turn on the water sensor">Turn on the water sensor</option>
+                </select>
+                <select name="relayTime" class="relayTimeSelect" style="display: none;">
+                    <option value="">Select a Time</option>
+                    <option value="2" style="margin-bottom: 15px;">2 seconds</option>
+                    <option value="5" style="margin-bottom: 15px;">5 seconds</option>
+                    <option value="10">10 seconds</option>
+                </select>
+                <input type="submit" value="Change Command">
+            </form>
+            {{ end }}
+            <form action="/delete-card" method="POST">
+                <input type="hidden" name="bytes" value="{{.Bytes}}">
+                <input type="submit" value="Delete">
+            </form>
+        </div>
+    </li>
+    {{end}}
+</ul>
+
+<script>
+    var commandSelects = document.querySelectorAll('.commandSelect');
+    commandSelects.forEach(function(select) {
+        select.addEventListener('change', function() {
+            var relayTimeSelect = this.parentNode.querySelector('.relayTimeSelect');
+            if (this.value === 'Turn on the relay') {
+                relayTimeSelect.style.display = 'block';
+            } else {
+                relayTimeSelect.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
