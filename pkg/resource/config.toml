@@ -1,0 +1,6 @@
+Port = "COM3"
+Baud = 9600
+
+DBUser = "postgres"
+DBPassword = "password"
+DBName = "CardsInfo"

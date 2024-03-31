@@ -1,9 +1,11 @@
-package database
+package storage
 
 import (
 	"database/sql"
 	"fmt"
 	_ "github.com/lib/pq"
+	"log"
+	"main/pkg/resource"
 )
 
 type CardsData struct {
@@ -12,10 +14,10 @@ type CardsData struct {
 	Message []byte `json:"message"`
 }
 
-var connStr = "host=localhost port=5432 user=postgres password=password dbname=CardsInfo sslmode=disable"
+var connStr = fmt.Sprintf("host=localhost port=5432 user=%v password=%v dbname=%v sslmode=disable", resource.Cfg.DBUser, resource.Cfg.DBPassword, resource.Cfg.DBName)
 
 type Database interface {
-	DBInit() error
+	DBInit()
 	OpenConnection() (*sql.DB, error)
 	CreateCard(uid []byte) error
 	UpdateCard(uid []byte, command string) error
@@ -27,17 +29,17 @@ type DB struct {
 	db *sql.DB
 }
 
-func (d *DB) DBInit() error {
+func (d *DB) DBInit() {
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
-		return err
+		log.Fatal(err)
 	}
 
 	defer db.Close()
 
 	err = db.Ping()
 	if err != nil {
-		return err
+		fmt.Println(err)
 	}
 	createTable := `
 			CREATE TABLE IF NOT EXISTS Cards(
@@ -48,10 +50,9 @@ func (d *DB) DBInit() error {
 `
 	_, err = db.Exec(createTable)
 	if err != nil {
-		return err
+		fmt.Println(err)
 	}
 	d.db = db
-	return nil
 
 }
 

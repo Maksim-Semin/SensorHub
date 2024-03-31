@@ -4,22 +4,22 @@ import (
 	"fmt"
 	"html/template"
 	"log"
-	"main/arduino"
-	database "main/db"
+	"main/pkg/arduino"
+	storage "main/pkg/storage"
 	"net/http"
 	"strconv"
 	"strings"
 )
 
 func getInfo(w http.ResponseWriter, r *http.Request) {
-	db := database.DB{}
+	db := storage.DB{}
 	data, err := db.GetCards()
 	if err != nil {
 		http.Error(w, "Failed to retrieve card information", http.StatusInternalServerError)
 		return
 	}
 
-	tmpl, err := template.ParseFiles("web/template.html")
+	tmpl, err := template.ParseFiles("pkg/web/template.html")
 	if err != nil {
 		http.Error(w, "Failed to parse template", http.StatusInternalServerError)
 		return
@@ -64,7 +64,7 @@ func deleteCard(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
-	db := database.DB{}
+	db := storage.DB{}
 	err = db.DeleteCard(byteData)
 
 	if err != nil {
@@ -75,11 +75,11 @@ func deleteCard(w http.ResponseWriter, r *http.Request) {
 }
 
 func BytConvert(cardNumber string) ([]byte, error) {
-	byteStrs := strings.Split(strings.Trim(cardNumber, "[]"), " ")
+	byteStr := strings.Split(strings.Trim(cardNumber, "[]"), " ")
 
-	cardByte := make([]byte, len(byteStrs))
+	cardByte := make([]byte, len(byteStr))
 
-	for i, byteStr := range byteStrs {
+	for i, byteStr := range byteStr {
 		byteValue, err := strconv.ParseUint(byteStr, 10, 8)
 		if err != nil {
 			return cardByte, fmt.Errorf("Error converting a string %s to byte: %v\n", byteStr, err)

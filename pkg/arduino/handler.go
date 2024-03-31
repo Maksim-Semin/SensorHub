@@ -3,8 +3,8 @@ package arduino
 import (
 	"fmt"
 	"log"
-	database "main/db"
-	"main/mySerial"
+	"main/pkg/mySerial"
+	storage "main/pkg/storage"
 
 	"github.com/lib/pq"
 )
@@ -53,7 +53,7 @@ func Receiver() {
 }
 
 func distribution(message Message) error {
-	db := database.DB{}
+	db := storage.DB{}
 
 	if message.FirstByte != 0xAA {
 		return fmt.Errorf("unexpected FirstByte value: %02X", message.FirstByte)

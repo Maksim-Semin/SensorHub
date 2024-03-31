@@ -2,14 +2,14 @@ package arduino
 
 import (
 	"fmt"
-	database "main/db"
+	storage "main/pkg/storage"
 	"strconv"
 )
 
 const polynomial uint8 = 0xD5
 
 func ByteReplacing(data []byte, command string, duration string) {
-	db := database.DB{}
+	db := storage.DB{}
 
 	switch command {
 	//			START BYTE -> COMMAND -> LEN-> DATA WITH TIME -> CRC -> END BYTE

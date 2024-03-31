@@ -3,6 +3,7 @@ package mySerial
 import (
 	"github.com/tarm/serial"
 	"log"
+	"main/pkg/resource"
 	"time"
 )
 
@@ -12,9 +13,10 @@ type SerialPort struct {
 }
 
 func NewSerialPort() (*SerialPort, error) {
+
 	config := &serial.Config{
-		Name:        USBPORT,
-		Baud:        BAUD,
+		Name:        resource.Cfg.Port,
+		Baud:        resource.Cfg.Baud,
 		ReadTimeout: time.Second * 5,
 	}
 

@@ -33,8 +33,8 @@ Arduino:
 ``` MFRC522 Arduino  Reader/PCD Uno/101
 
 Pin  				Pin
-Reader/PCD Uno/101	MFRC522 Arduino
---------------------------------
+Reader/PCD Uno/101	     MFRC522 Arduino
+-----------------------------------
 
 RST 				9
 SDA(SS) 			10
@@ -44,13 +44,13 @@ SCK 				13
 VСС                            3.3V
 GND 				GND 
 ```
-2. Реле
+2.Реле
 ```
 GND - GND
 VCC - 5V
 IN  - 2
 ```
-3. Датчик Воды
+3.Датчик Воды
 ```
 IN  - A0
 VCC - 5V
@@ -58,6 +58,7 @@ GND - GND
 ```
 
 После подключения всех компонентов к плате - загрузите в нее скетч с помощью Arduino IDE, который лежит в корневой директории.
+
 Сервер:
 1. git clone ```https://github.com/maxpurrp/SensorHub```
 2. ```docker build -t postgres .```

@@ -1,18 +1,16 @@
 package main
 
 import (
-	"log"
-	"main/arduino"
-	database "main/db"
-	"main/web"
+	"main/pkg/arduino"
+	"main/pkg/storage"
+	"main/pkg/web"
 )
 
 func main() {
-	db := database.DB{}
-	err := db.DBInit()
-	if err != nil {
-		log.Fatal(err)
-	}
+
+	db := storage.DB{}
+	go db.DBInit()
+
 	go web.StartWeb()
 
 	arduino.Receiver()
