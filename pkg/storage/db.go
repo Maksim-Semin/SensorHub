@@ -5,7 +5,7 @@ import (
 	"fmt"
 	_ "github.com/lib/pq"
 	"log"
-	"main/pkg/resource"
+	"main/resource"
 )
 
 type CardsData struct {

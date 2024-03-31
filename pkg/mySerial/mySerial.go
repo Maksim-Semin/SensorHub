@@ -3,7 +3,7 @@ package mySerial
 import (
 	"github.com/tarm/serial"
 	"log"
-	"main/pkg/resource"
+	"main/resource"
 	"time"
 )
 

@@ -62,6 +62,7 @@ GND - GND
 Сервер:
 1. git clone ```https://github.com/maxpurrp/SensorHub```
 2. ```docker build -t postgres .```
+3. Измените конфигурации для вашего USB порта и базы данных в папке ```pkg/resourse/config.toml```
 3. ```docker run -d -p 5432:5432 postgres ```
 4. ```go run /.main.go```
 
